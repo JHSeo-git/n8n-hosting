@@ -30,10 +30,15 @@ spec:
           args:
             - -c
             - sleep 5; n8n start
-          envFrom:
-            - secretRef:
-                name: n8n-secret
           env:
+            - name: DB_TYPE
+              value: postgresdb
+            - name: DB_POSTGRESDB_HOST
+              value: postgres-service.n8n.svc.cluster.local
+            - name: DB_POSTGRESDB_PORT
+              value: "5432"
+            - name: DB_POSTGRESDB_DATABASE
+              value: n8n
             - name: DB_POSTGRESDB_USER
               valueFrom:
                 secretKeyRef:
@@ -44,17 +49,19 @@ spec:
                 secretKeyRef:
                   name: postgres-secret
                   key: POSTGRES_NON_ROOT_PASSWORD
-          image: core.harbor.local/axpg/n8n
+            - name: N8N_PROTOCOL
+              value: http
+            - name: N8N_PORT
+              value: "5678"
+          image: n8nio/n8n
           name: n8n
           ports:
             - containerPort: 5678
           resources:
             requests:
-              memory: "320Mi"
-              cpu: "100m"
+              memory: "250Mi"
             limits:
-              memory: "640Mi"
-              cpu: "500m"
+              memory: "500Mi"
           volumeMounts:
             - mountPath: /home/node/.n8n
               name: n8n-claim0
