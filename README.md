@@ -8,6 +8,9 @@
 
 ## kubernetes 실행
 
+- postgres는 azure database for postgresql을 사용한다면 postgres 적용은 생략
+- 현재 설정으로는 여러 파드가 동시에 실행될 수 없는 구조. 따라서 스케일링이나 고가용성을 고려하면 추가로 설정이 필요함(replicas, accessModes 설정 등)
+
 ```bash
 kubectl apply -f kubernetes/namespace.yaml
 ```

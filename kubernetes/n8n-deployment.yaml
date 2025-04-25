@@ -33,28 +33,17 @@ spec:
           envFrom:
             - secretRef:
                 name: n8n-secret
-          env:
-            - name: DB_POSTGRESDB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_NON_ROOT_USER
-            - name: DB_POSTGRESDB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: POSTGRES_NON_ROOT_PASSWORD
           image: core.harbor.local/axpg/n8n
           name: n8n
           ports:
             - containerPort: 5678
           resources:
             requests:
-              memory: "320Mi"
-              cpu: "100m"
-            limits:
               memory: "640Mi"
-              cpu: "500m"
+              cpu: "200m"
+            limits:
+              memory: "1280Mi"
+              cpu: "800m"
           volumeMounts:
             - mountPath: /home/node/.n8n
               name: n8n-claim0
