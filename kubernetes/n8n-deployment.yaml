@@ -33,7 +33,7 @@ spec:
           envFrom:
             - secretRef:
                 name: n8n-secret
-          image: core.harbor.local/axpg/n8n
+          image: aoaiaiplayground.azurecr.io/axpg/n8n
           name: n8n
           ports:
             - containerPort: 5678
@@ -55,6 +55,6 @@ spec:
         - name: n8n-secret
           secret:
             secretName: n8n-secret
-        - name: postgres-secret
-          secret:
-            secretName: postgres-secret
+        # - name: postgres-secret
+        #   secret:
+        #     secretName: postgres-secret
