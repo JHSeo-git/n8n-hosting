@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: n8n-ingress
+  namespace: n8n
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/use-private-ip: "true"
+    appgw.ingress.kubernetes.io/ssl-redirect: "true"
+    appgw.ingress.kubernetes.io/appgw-ssl-certificate: cert-aoai-kc-axpg-01
+    appgw.ingress.kubernetes.io/request-timeout: "150"
+spec:
+  tls:
+    - hosts:
+        - n8n-dev.aipg.lgcns.com
+      secretName: cert-aoai-kc-axpg-01
+  rules:
+    - host: n8n-dev.aipg.lgcns.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: n8n
+                port:
+                  number: 80 # ← Service의 외부 포트 (port), not targetPort

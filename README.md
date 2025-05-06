@@ -29,3 +29,22 @@ kubectl apply -f kubernetes/n8n-claim0-persistentvolumeclaim.yaml
 kubectl apply -f kubernetes/n8n-deployment.yaml
 kubectl apply -f kubernetes/n8n-service.yaml
 ```
+
+```bash
+# 우회용 기본 rule 포함
+az network application-gateway create \
+  --name agw-aoai-kc-axpg-dev-01 \
+  --resource-group rg-aoai-kc-aipg-dev \
+  --location koreacentral \
+  --sku Standard_v2 \
+  --capacity 2 \
+  --vnet-name vnet-aoai-kc-axpg-dev-01 \
+  --subnet sbn-aoai-kc-axpg-dev-agw-01 \
+  --public-ip-address axpg-agw-public-ip-01 \
+  --frontend-port 80 \
+  --http-settings-protocol Http \
+  --http-settings-port 80 \
+  --servers 127.0.0.1 \
+  --priority 100 \
+  --no-wait
+```

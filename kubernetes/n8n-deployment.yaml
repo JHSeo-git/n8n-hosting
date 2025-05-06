@@ -33,7 +33,7 @@ spec:
           envFrom:
             - secretRef:
                 name: n8n-secret
-          image: aoaiaiplayground.azurecr.io/axpg/n8n
+          image: aoaiaiplayground.azurecr.io/axpg/n8n:latest
           name: n8n
           ports:
             - containerPort: 5678
