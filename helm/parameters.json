@@ -1,0 +1,6 @@
+{
+  "aksServicePrincipalAppId": { "value": "" },
+  "aksServicePrincipalClientSecret": { "value": "" },
+  "aksServicePrincipalObjectId": { "value": "" },
+  "aksEnableRBAC": { "value": false }
+}

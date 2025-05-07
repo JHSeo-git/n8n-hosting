@@ -1,0 +1,47 @@
+# This file contains the essential configs for the ingress controller helm chart
+
+# Verbosity level of the App Gateway Ingress Controller
+verbosityLevel: 3
+
+################################################################################
+# Specify which application gateway the ingress controller will manage
+#
+appgw:
+  subscriptionId: e2db5ede-f128-4a3e-87ce-43b3063b6d92
+  resourceGroup: rg-aoai-kc-aipg-dev
+  name: appgw-axpg-n8n-agic-dev-01
+  usePrivateIP: false
+
+  # Setting appgw.shared to "true" will create an AzureIngressProhibitedTarget CRD.
+  # This prohibits AGIC from applying config for any host/path.
+  # Use "kubectl get AzureIngressProhibitedTargets" to view and change this.
+  shared: false
+
+################################################################################
+# Specify which kubernetes namespace the ingress controller will watch
+# Default value is "default"
+# Leaving this variable out or setting it to blank or empty string would
+# result in Ingress Controller observing all acessible namespaces.
+#
+# kubernetes:
+#   watchNamespace: <namespace>
+
+################################################################################
+# Specify the authentication with Azure Resource Manager
+#
+# Two authentication methods are available:
+# - Option 1: AAD-Pod-Identity (https://github.com/Azure/aad-pod-identity)
+armAuth:
+  type: workloadIdentity
+  identityResourceID: /subscriptions/e2db5ede-f128-4a3e-87ce-43b3063b6d92/resourceGroups/rg-aoai-kc-aipg-dev/providers/Microsoft.Network/applicationGateways/agw-aoai-kc-axpg-dev-01
+  identityClientID: e5ac8d39-292c-449c-a84f-1e4311217611
+
+## Alternatively you can use Service Principal credentials
+# armAuth:
+#    type: servicePrincipal
+#    secretJSON: <<Generate this value with: "az ad sp create-for-rbac --subscription <subscription-uuid> --sdk-auth | base64 -w0" >>
+
+################################################################################
+# Specify if the cluster is RBAC enabled or not
+rbac:
+  enabled: false # true/false
