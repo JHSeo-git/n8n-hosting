@@ -1,7 +1,9 @@
 ## helm
 
 ```bash
-helm repo add application-gateway-kubernetes-ingress https://appgwingress.blob.core.windows.net/ingress-azure-helm-package/
+helm repo add \
+    application-gateway-kubernetes-ingress \
+    https://appgwingress.blob.core.windows.net/ingress-azure-helm-package/
 ```
 
 ### set workload identity
